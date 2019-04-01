@@ -1,9 +1,52 @@
 main {
+  padding: 2% 0 0 2%;
+  font-size: 1.1em;
+}
+
+.pictures {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 2%;
 }
 
 .picture {
-  width: 20%;
-  padding-right: 4%;
+  width: 18%;
+  padding: 0 2% 2% 0;
+}
+
+.picture img {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.form input {
+  height: 32px;
+  width: 200px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  outline: none;
+  font-size: 1em;
+  padding-left: 10px;
+}
+.form input:focus {
+  border: 1px solid #2d84da;
+}
+.form input::placeholder {
+  color: #999999;
+}
+
+.form button {
+  height: 30px;
+  margin-left: 10px;
+  border-radius: 4px;
+  outline: none;
+  font-size: 1em;
+  padding: 0 20px;
+  background: #2d84da;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+.form button:hover {
+  background: #1f69b2;
 }
