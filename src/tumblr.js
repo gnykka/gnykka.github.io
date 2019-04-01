@@ -7,7 +7,7 @@
     const apiKey = 'qERU7FQgk2qe5cVA76WWbyWeUpvC4PqaWehCj990ARTmQpjChE';
     const defaultTag = 'fashion';
 
-    let minTimestamp;
+    let minTimestamp = Date.now();
 
     function getNewPics(tag, newRequest = true) {
       cover.classList.add('visible');
@@ -26,12 +26,12 @@
 
           if (newRequest) {
             pictures.innerHTML = '';
-            minTimestamp = -1;
+            minTimestamp = Date.now();
           }
           response
             .filter(post => post.type === 'photo')
             .forEach((post) => {
-              if (minTimestamp === -1 || post.timestamp < minTimestamp) {
+              if (post.timestamp < minTimestamp) {
                 minTimestamp = post.timestamp;
               }
 
