@@ -1,15 +1,18 @@
 (() => {
   window.addEventListener('load', () => {
     const pictures = document.querySelector('.pictures');
+    const cover = document.querySelector('.cover');
     const baseUrl = 'https://api.pinterest.com/v3/pidgets/users/';
     const defaultUser = 'townofdragons';
 
     function getNewPins(user) {
+      cover.classList.add('visible');
       fetch(`${baseUrl}${user}/pins/`)
         .then(data => data.json())
         .then(({ data }) => {
-          if (!data) {
+          if (!data || !data.pins.length) {
             pictures.innerHTML = 'Ничего не найдено';
+            cover.classList.remove('visible');
             return;
           }
           pictures.innerHTML = '';
@@ -23,6 +26,7 @@
             picture.appendChild(img);
             pictures.appendChild(picture);
           });
+          cover.classList.remove('visible');
         });
     }
 
@@ -41,7 +45,6 @@
       getNewPins(input.value);
     });
 
-    // add cover while loading
     // masonry layout ?
   });
 })();
