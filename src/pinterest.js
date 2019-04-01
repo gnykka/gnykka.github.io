@@ -44,7 +44,5 @@
     button.addEventListener('click', (event) => {
       getNewPins(input.value);
     });
-
-    // masonry layout ?
   });
 })();
