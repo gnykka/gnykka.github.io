@@ -8,6 +8,10 @@
       fetch(`${baseUrl}${user}/pins/`)
         .then(data => data.json())
         .then(({ data }) => {
+          if (!data) {
+            pictures.innerHTML = 'Ничего не найдено';
+            return;
+          }
           pictures.innerHTML = '';
           data.pins.forEach((pin) => {
             const picture = document.createElement('div');
