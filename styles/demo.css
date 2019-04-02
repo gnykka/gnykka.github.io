@@ -26,10 +26,10 @@ main {
 }
 .picture.loaded {
   background: none;
+  height: unset;
 }
 .picture.loaded img {
   opacity: 1;
-  height: unset;
 }
 
 input {
