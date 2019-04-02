@@ -13,12 +13,19 @@ main {
 
 .picture {
   width: 18%;
-  padding: 0 2% 2% 0;
+  margin: 0 2% 2% 0;
+  border-radius: 4px;
+  background: rgba(45, 132, 218, 0.4);
 }
 
 .picture img {
   width: 100%;
-  border-radius: 4px;
+  opacity: 0;
+  transition: all 200ms ease-in-out;
+}
+
+.picture img.loaded {
+  opacity: 1;
 }
 
 input {
@@ -69,18 +76,5 @@ button:hover {
 }
 .cover.visible {
   opacity: 0.8;
-  pointer-events: all;
-}
-
-.load-more {
-  width: 100%;
-  text-align: center;
-  margin: 2% 0 5% 0;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 200ms ease-in-out;
-}
-.load-more.visible {
-  opacity: 1;
   pointer-events: all;
 }

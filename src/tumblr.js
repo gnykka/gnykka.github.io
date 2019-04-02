@@ -1,55 +1,64 @@
 (() => {
   window.addEventListener('load', () => {
     const pictures = document.querySelector('.pictures');
-    const cover = document.querySelector('.cover');
-    const loadMore = document.querySelector('.load-more');
-    const baseUrl = 'https://api.tumblr.com/v2/tagged';
+
+    const tagUrl = 'https://api.tumblr.com/v2/tagged';
+    const postUrl = 'https://api.tumblr.com/v2/blog/';
     const apiKey = 'qERU7FQgk2qe5cVA76WWbyWeUpvC4PqaWehCj990ARTmQpjChE';
     const defaultTag = 'fashion';
 
-    let minTimestamp = Date.now();
+    function onImageLoad(event) {
+      event.target.classList.add('loaded');
+    }
 
-    function getNewPics(tag, newRequest = true) {
-      cover.classList.add('visible');
-      loadMore.classList.remove('visible');
+    function getBlogPics(name) {
+      fetch(`${postUrl}${name}/posts/photo?api_key=${apiKey}`)
+        .then(data => data.json())
+        .then(({ response }) => {
+          if (!response.posts) { return; }
 
-      fetch(`${baseUrl}?tag=${tag}&api_key=${apiKey}${newRequest ? '' : `&before=${minTimestamp}`}`)
+          response.posts.forEach((post) => {
+            if (!post.photos) { return; }
+
+            const picture = document.createElement('div');
+            const img = document.createElement('img');
+
+            picture.classList.add('picture');
+
+            picture.appendChild(img);
+            pictures.appendChild(picture);
+
+            const { url, width, height } = post.photos[0].original_size;
+
+            picture.style['height'] = `${img.clientWidth * height / width}px`;
+
+            img.src = url;
+            img.onload = onImageLoad;
+          });
+        })
+    }
+
+    function getBlogs(tag) {
+      fetch(`${tagUrl}?tag=${tag}&api_key=${apiKey}`)
         .then(data => data.json())
         .then(({ response }) => {
           if (!response || !response.length) {
-            if (newRequest) {
-              pictures.innerHTML = 'Ничего не найдено';
-            }
-            cover.classList.remove('visible');
+            pictures.innerHTML = 'Ничего не найдено';
             return;
           }
 
-          if (newRequest) {
-            pictures.innerHTML = '';
-            minTimestamp = Date.now();
-          }
+          pictures.innerHTML = '';
           response
-            .filter(post => post.type === 'photo')
-            .forEach((post) => {
-              if (post.timestamp < minTimestamp) {
-                minTimestamp = post.timestamp;
-              }
-
-              const picture = document.createElement('div');
-              picture.classList.add('picture');
-
-              const img = document.createElement('img');
-              img.src = post.photos[0].original_size.url;
-
-              picture.appendChild(img);
-              pictures.appendChild(picture);
+            .map(post => post.blog_name)
+            .filter((name, i, array) => array.indexOf(name) === i)
+            .forEach((name) => {
+              console.log(name);
+              getBlogPics(name);
             });
-          cover.classList.remove('visible');
-          loadMore.classList.add('visible');
         });
     }
 
-    getNewPics(defaultTag);
+    getBlogs(defaultTag);
 
     const form = document.querySelector('.form');
     const input = form.elements['tag'];
@@ -58,14 +67,10 @@
     input.value = defaultTag;
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-      getNewPics(input.value);
+      getBlogs(input.value);
     });
     button.addEventListener('click', () => {
-      getNewPics(input.value);
-    });
-
-    loadMore.children[0].addEventListener('click', () => {
-      getNewPics(input.value, false);
+      getBlogs(input.value);
     });
   });
 })();
