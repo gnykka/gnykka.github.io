@@ -8,7 +8,7 @@
     const defaultTag = 'fashion';
 
     function onImageLoad(event) {
-      event.target.classList.add('loaded');
+      event.target.parentElement.classList.add('loaded');
     }
 
     function getBlogPics(name) {

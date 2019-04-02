@@ -21,10 +21,13 @@ main {
 .picture img {
   width: 100%;
   opacity: 0;
+  border-radius: 4px;
   transition: all 200ms ease-in-out;
 }
-
-.picture img.loaded {
+.picture.loaded {
+  background: none;
+}
+.picture.loaded img {
   opacity: 1;
 }
 
