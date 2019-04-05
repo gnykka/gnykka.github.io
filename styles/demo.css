@@ -63,22 +63,3 @@ button {
 button:hover {
   background: #1f69b2;
 }
-
-.cover {
-  position: absolute;
-  z-index: 100;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background: #ffffff;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 200ms ease-in-out;
-}
-.cover.visible {
-  opacity: 0.8;
-  pointer-events: all;
-}

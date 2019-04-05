@@ -5,7 +5,7 @@
     const tagUrl = 'https://api.tumblr.com/v2/tagged';
     const postUrl = 'https://api.tumblr.com/v2/blog/';
     const apiKey = 'qERU7FQgk2qe5cVA76WWbyWeUpvC4PqaWehCj990ARTmQpjChE';
-    const defaultTag = 'fashion';
+    const defaultTag = 'landscape';
 
     function onImageLoad(event) {
       event.target.parentElement.classList.add('loaded');
@@ -39,6 +39,9 @@
     }
 
     function getBlogs(tag) {
+      // TODO: попробовать брать фото для случайного таймстемпа
+      // тогда они будут более случайными
+
       fetch(`${tagUrl}?tag=${tag}&api_key=${apiKey}`)
         .then(data => data.json())
         .then(({ response }) => {
