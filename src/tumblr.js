@@ -8,7 +8,10 @@
     const defaultTag = 'landscape';
 
     function onImageLoad(event) {
-      event.target.parentElement.classList.add('loaded');
+      const parent = event.target.parentElement;
+
+      parent.classList.add('loaded');
+      parent.style['height'] = 'auto';
     }
 
     function getBlogPics(name) {
@@ -54,10 +57,7 @@
           response
             .map(post => post.blog_name)
             .filter((name, i, array) => array.indexOf(name) === i)
-            .forEach((name) => {
-              console.log(name);
-              getBlogPics(name);
-            });
+            .forEach((name) => { getBlogPics(name); });
         });
     }
 
