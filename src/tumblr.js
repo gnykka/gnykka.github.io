@@ -38,7 +38,7 @@
             img.src = url;
             img.onload = onImageLoad;
           });
-        })
+        });
     }
 
     function getBlogs(tag) {
