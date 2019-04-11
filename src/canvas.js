@@ -27,10 +27,10 @@
     let imax;
 
     function renderPhotos() {
-      const gridWidth = Math.max(...photos.map(({ width }) => width));
-      const gridHeight = Math.max(...photos.map(({ height }) => height));
-      //const gridWidth = photos.reduce((res, photo) => res + photo.width, 0) / photos.length * 1.4;
-      //const gridHeight = photos.reduce((res, photo) => res + photo.height, 0) / photos.length * 1.4;
+      //const gridWidth = Math.max(...photos.map(({ width }) => width));
+      //const gridHeight = Math.max(...photos.map(({ height }) => height));
+      const gridWidth = photos.reduce((res, photo) => res + photo.width, 0) / photos.length * 1.4;
+      const gridHeight = photos.reduce((res, photo) => res + photo.height, 0) / photos.length * 1.4;
 
       let x = -gridWidth / 2;
       let y = -gridHeight / 2;
@@ -66,7 +66,7 @@
             .filter(({ photos }) => photos && photos.length)
             .forEach((post) => {
               const photo = post.photos[0].original_size;
-              const width = photo.width / 8; //Math.max(photo.width / 5, 50);
+              const width = photo.width / 4;
               const index = Math.floor(Math.random() * photos.length);
 
               photos.splice(index, 0, {
