@@ -1,0 +1,48 @@
+main {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.map {
+  height: 60%;
+  width: 60%;
+  background: cornflowerblue;
+}
+
+.map path {
+  fill: antiquewhite;
+  stroke: gold;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.map .compass circle {
+  fill: white;
+  stroke: #333;
+  stroke-width: 3px;
+}
+
+.map .compass path {
+  fill: #333;
+  stroke: #333;
+  stroke-width: 2px;
+}
+
+.map .compass text.horizontal {
+  text-anchor: middle;
+  font-family: Zapfino;
+  font-size: 0.8em;
+  stroke: #333;
+}
+
+.map .compass path.dynamic {
+  stroke: gold;
+}
+
+.map:hover .compass path.dynamic {
+  transition: transform 2s ease-in-out;
+}

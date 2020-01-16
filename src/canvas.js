@@ -7,7 +7,7 @@
     const tagUrl = 'https://api.tumblr.com/v2/tagged';
     const postUrl = 'https://api.tumblr.com/v2/blog/';
     const apiKey = 'qERU7FQgk2qe5cVA76WWbyWeUpvC4PqaWehCj990ARTmQpjChE';
-    const tag = 'fashion';
+    const tag = 'landscape';
 
     // prepare canvas for rendering
     const main = document.querySelector('main');
