@@ -71,40 +71,119 @@
     return points;
   }
 
-  // TODO: добавлять path в clipPath
-  // TODO: вместо path — rect с clip-path
-  // TODO: остров-круг с clip-path в случайном месте на карте
-  // TODO: менять круг, превращая в похожую на остров форму
-  // TODO: случайная скорость и длина анимации + останавливать на текущем месте при mouseleave
+  const getRandomMultiplier = (mult) => {
+    const sign = Math.random() > 0.5 ? 1 : -1;
+    return Math.random() * mult * sign;
+  }
 
   window.addEventListener('load', () => {
     const map = document.getElementsByTagName('svg')[0];
-    const margin = 80;
-    const step = 8;
-    const rect = map.getBoundingClientRect();
+    const margin = 70;
+    const step = 6;
+    const boundingRect = map.getBoundingClientRect();
+    const cross = {
+      cx: margin * 1.5 + Math.random() * (boundingRect.width - margin * 3),
+      cy: margin * 1.5 + Math.random() * (boundingRect.height - margin * 3),
+    };
+    const crossSize = 6;
 
-    const renderMapBorder = () => {
-      const points = createPointsArray(rect, margin, step);
-      let pathString = points.reduce((res, p, index) => {
+    let pathString;
+
+    const addClipPath = () => {
+      const points = createPointsArray(boundingRect, margin, step);
+
+      pathString = points.reduce((res, p, index) => {
         if (index === 0) res += `M${p.x},${p.y}`;
         else res += `L${p.x},${p.y}`;
         return res;
       }, '');
       pathString += `L${points[0].x},${points[0].y}`;
 
+      const cp = createSvgElement(
+        'clipPath', '', { id: 'map-border' },
+      );
       const path = createSvgElement(
         'path', '', { d: pathString },
       );
+
+      cp.appendChild(path);
+      map.appendChild(cp);
+    }
+
+    const renderMapBorder = () => {
+      const path = createSvgElement('path', '', { d: pathString });
       map.appendChild(path);
     };
+
+    const renderIsland = () => {
+      [...Array(4).keys()].forEach(i => {
+        const circle = createSvgElement('circle', '', {
+          cx: cross.cx,
+          cy: cross.cy,
+          r: (i + 1) * 40,
+          'clip-path': 'url(#map-border)',
+        });
+
+        map.appendChild(circle);
+
+        const length = circle.getTotalLength();
+        const step = 0.05;
+
+        let position = length * step * 0.5;
+        let points = [];
+
+        while (position <= length) {
+          const pt = circle.getPointAtLength(position);
+          const x = Math.round(pt.x + getRandomMultiplier((i + 1) * 2));
+          const y = Math.round(pt.y + getRandomMultiplier((i + 1) * 2));
+
+          points.push({ x, y });
+          position += length * step;
+        }
+
+        const rand = Math.round(Math.random() * (points.length - 1));
+        points = points.concat(points.splice(0, rand));
+
+        let circleString = points.slice(0, -1).reduce((str, pt, index) => {
+          if (index === 0) str += `${pt.x} ${pt.y}`;
+          else if (index % 2 === 1) {
+            str += ` S ${pt.x} ${pt.y}`;
+          }
+          else str += ` ${pt.x} ${pt.y}`;
+          return str;
+        }, 'M');
+        //circleString += ` A ${length / 5} ${length / 5} 0 0 1 ${points[0].x} ${points[0].y}`;
+
+        const path = createSvgElement('path', `area area-${i}`, {
+          d: circleString,
+          'clip-path': 'url(#map-border)',
+        });
+
+        map.appendChild(path);
+        map.removeChild(circle);
+      });
+    }
+
+    const renderCross = () => {
+      const l1 = createSvgElement('line', 'cross', {
+        x1: cross.cx - crossSize, y1: cross.cy - crossSize,
+        x2: cross.cx + crossSize, y2: cross.cy + crossSize,
+      });
+      const l2 = createSvgElement('line', 'cross', {
+        x1: cross.cx - crossSize, y1: cross.cy + crossSize,
+        x2: cross.cx + crossSize, y2: cross.cy - crossSize,
+      });
+      map.appendChild(l1);
+      map.appendChild(l2);
+    }
 
     const renderCompass = () => {
       const size = margin;
       const diff = 5;
       const radius = size * 0.5;
       const pos = {
-        x: Math.random() < 0.5 ? 20 : (rect.width - margin - 20),
-        y: Math.random() < 0.5 ? 40 : (rect.height - margin - 20),
+        x: boundingRect.width - margin - 20,
+        y: boundingRect.height - margin - 20,
       };
 
       const compass = createSvgElement('g', 'compass', {});
@@ -156,7 +235,10 @@
       map.appendChild(compass);
     };
 
+    addClipPath();
     renderMapBorder();
+    renderIsland();
+    renderCross();
     renderCompass();
   });
 })();
