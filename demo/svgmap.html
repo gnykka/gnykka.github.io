@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SVG Map</title>
+
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin=""
+  />
+
+  <link rel="stylesheet" href="../styles/index.css">
+  <link rel="stylesheet" href="../styles/svgmap.css">
+
+  <script
+    src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""
+  ></script>
+  <script src="http://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/imagetracerjs@1.2.5/imagetracer_v1.2.5.min.js"></script>
+  <script src="../src/svgmap.js"></script>
+</head>
+<body>
+  <main>
+    <h3>Контейнер с leaflet картой — 1</h3>
+    <div class="info">
+      <div class="map" id="map-1"></div>
+      <div class="tiles tiles-1"></div>
+    </div>
+
+    <h3>Canvas и SVG с тайлами</h3>
+    <div class="info">
+      <canvas id="canvas-1"></canvas>
+      <div class="svgcontainer" id="svgcontainer-1"></div>
+    </div>
+
+    <hr />
+
+    <h3>Контейнер с leaflet картой — 2</h3>
+    <div class="info">
+      <div class="map" id="map-2"></div>
+      <div class="tiles tiles-2"></div>
+    </div>
+
+    <h3>Canvas и SVG с тайлами</h3>
+    <div class="info">
+      <canvas id="canvas-2"></canvas>
+      <div class="svgcontainer" id="svgcontainer-2"></div>
+    </div>
+  </main>
+</body>
+</html>
