@@ -12,8 +12,8 @@ main {
 }
 
 .map {
-  width: 500px;
-  height: 300px;
+  width: 800px;
+  height: 600px;
 }
 .map .leaflet-control-container {
   display: none;
@@ -37,7 +37,7 @@ canvas {
   image-rendering: crisp-edges;
 }
 .svgcontainer {
-  margin-left: 20px;
+  margin-top: 10px;
 }
 
 hr {

@@ -19,7 +19,7 @@
 
   renderCanvas = (images, index) => {
     const map = document.querySelector(`#map-${index}`);
-    const canvas = document.querySelector(`#canvas-${index}`);
+    const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
     canvas.width = map.clientWidth;
@@ -58,6 +58,8 @@
               p.setAttribute('fill', 'yellow');
             }
           });
+
+          console.log(document.querySelector(`#svgcontainer-${index}`).innerHTML);
         },
         options,
       );
@@ -80,11 +82,18 @@
     ).addTo(map1);
     map1.whenReady(() => onMapLoad(1));
 
-    const map2 = L.map('map-2').setView([55.6912, 37.5184], 12);
+    const map2 = L.map('map-2').setView([55.7512, 37.6184], 12);
     L.tileLayer(
       'https://tiles.mapiful.com/mono/{z}/{x}/{y}.png',
       { maxZoom: 16, attribution: '' }
     ).addTo(map2);
     map2.whenReady(() => onMapLoad(2));
+
+    const map3 = L.map('map-3').setView([55.7512, 37.6184], 11);
+    L.tileLayer(
+      'https://tiles.mapiful.com/mono/{z}/{x}/{y}.png',
+      { maxZoom: 16, attribution: '' }
+    ).addTo(map3);
+    map3.whenReady(() => onMapLoad(3));
   });
 })();
