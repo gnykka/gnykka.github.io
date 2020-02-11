@@ -58,8 +58,6 @@
               p.setAttribute('fill', 'yellow');
             }
           });
-
-          console.log(document.querySelector(`#svgcontainer-${index}`).innerHTML);
         },
         options,
       );

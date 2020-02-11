@@ -1,0 +1,24 @@
+path {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+path.path {
+  stroke: #000;
+  fill: none;
+  fill-rule: nonzero;
+}
+
+circle {
+  fill: #ffa000;
+  stroke: #000;
+}
+.hidden {
+  display: none;
+}
+
+path#car {
+  fill: #ffa000;
+  stroke: #000;
+  transform: rotate(90deg) translate(-18px, -20px) scale(0.8);
+}
