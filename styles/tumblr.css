@@ -13,6 +13,7 @@ main {
 
 .picture {
   width: 18%;
+  max-width: 250px;
   margin: 0 2% 2% 0;
   border-radius: 4px;
   background: rgba(45, 132, 218, 0.4);

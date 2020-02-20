@@ -20,7 +20,7 @@
         .then(({ response }) => {
           if (!response.posts) { return; }
 
-          response.posts.forEach((post) => {
+          response.posts.slice(0, 2).forEach((post) => {
             if (!post.photos) { return; }
 
             const picture = document.createElement('div');
@@ -31,8 +31,7 @@
             picture.appendChild(img);
             pictures.appendChild(picture);
 
-            const { url, width, height } = post.photos[0].original_size;
-
+            const { url, width, height } = post.photos[0].alt_sizes.find(p => p.width <= 250);
             picture.style['height'] = `${img.clientWidth * height / width}px`;
 
             img.src = url;
