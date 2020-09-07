@@ -6,7 +6,12 @@
   };
 
   ext.set_color = function(color) {
-    $.post('http://0.0.0.0:1234/api/color', { color });
+    $.ajax({
+      type: 'POST',
+      url: 'http://0.0.0.0:1234/api/color',
+      data: { color },
+      dataType: 'json',
+    });
   };
 
   ext.set_motor = function() {
@@ -49,7 +54,7 @@
 
   var descriptor = {
     blocks: [
-      ['w', 'Set color', 'set_color', '#ff0000'],
+      ['w', 'Set color', 'set_color', 'ff0000'],
       ['w', 'Set motor', 'set_motor'],
       ['w', 'Stop', 'stop'],
       ['w', 'Move forward', 'move_forward'],
