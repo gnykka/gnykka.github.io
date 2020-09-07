@@ -6,7 +6,7 @@
   };
 
   ext.set_color = function(color) {
-    $.post('http://0.0.0.0:1234/color', { color });
+    $.post('http://0.0.0.0:1234/api/color', { color });
   };
 
   ext.set_motor = function() {
@@ -33,7 +33,7 @@
       dataType: 'jsonp',
       success: function(weather_data) {
         temperature = weather_data['main']['temp'];
-        callback(temperature);
+        callback(`${temperature} --2`);
       }
     });
   };
