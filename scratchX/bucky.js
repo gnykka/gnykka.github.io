@@ -5,10 +5,11 @@
     return { status: 2, msg: 'Ready' };
   };
 
-  ext.set_motor = function() {
+  ext.set_color = function(color) {
+    $.post('http://0.0.0.0:1234/color', { color });
   };
 
-  ext.set_color = function() {
+  ext.set_motor = function() {
   };
 
   ext.stop = function() {
@@ -48,7 +49,7 @@
 
   var descriptor = {
     blocks: [
-      ['w', 'Set color', 'set_color'],
+      ['w', 'Set color', 'set_color', '#ff0000'],
       ['w', 'Set motor', 'set_motor'],
       ['w', 'Stop', 'stop'],
       ['w', 'Move forward', 'move_forward'],
