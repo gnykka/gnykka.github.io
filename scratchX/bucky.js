@@ -1,36 +1,66 @@
-/* Extension demonstrating a blocking command block */
-/* Sayamindu Dasgupta <sayamindu@media.mit.edu>, May 2014 */
+(function(ext) {
+  ext._shutdown = function() {};
 
-new (function() {
-    var ext = this;
+  ext._getStatus = function() {
+    return { status: 2, msg: 'Ready' };
+  };
 
-    // Cleanup function when the extension is unloaded
-    ext._shutdown = function() {};
+  ext.set_motor = function() {
+  };
 
-    // Status reporting code
-    // Use this to report missing hardware, plugin or unsupported browser
-    ext._getStatus = function() {
-        return {status: 2, msg: 'Ready'};
-    };
+  ext.set_color = function() {
+  };
 
-    // Functions for block with type 'w' will get a callback function as the 
-    // final argument. This should be called to indicate that the block can
-    // stop waiting.
-    ext.wait_random = function(callback) {
-        wait = Math.random();
-        console.log('Waiting for ' + wait + ' seconds');
-        window.setTimeout(function() {
-            callback();
-        }, wait*1000);
-    };
+  ext.stop = function() {
+  };
 
-    // Block and block menu descriptions
-    var descriptor = {
-        blocks: [
-            ['w', 'wait for random time', 'wait_random'],
-        ]
-    };
+  ext.move_forward = function() {
+  };
 
-    // Register the extension
-    ScratchExtensions.register('Random wait extension', descriptor, ext);
-})();
+  ext.move_backward = function() {
+  };
+
+  ext.turn_right = function() {
+  };
+
+  ext.turn_left = function() {
+  };
+
+  ext.get_light = function(callback) {
+    $.ajax({
+      url: 'http://api.openweathermap.org/data/2.5/weather?q=Boston&units=imperial&appid=506c04c8964f81d05743f45f600991e8',
+      dataType: 'jsonp',
+      success: function(weather_data) {
+        temperature = weather_data['main']['temp'];
+        callback(temperature);
+      }
+    });
+  };
+
+  ext.get_direction = function() {
+  };
+
+  ext.get_touch = function() {
+  };
+
+  ext.get_angle = function() {
+  };
+
+  var descriptor = {
+    blocks: [
+      ['w', 'Set color', 'set_color'],
+      ['w', 'Set motor', 'set_motor'],
+      ['w', 'Stop', 'stop'],
+      ['w', 'Move forward', 'move_forward'],
+      ['w', 'Move backward', 'move_backward'],
+      ['w', 'Turn right', 'turn_right'],
+      ['w', 'Turn left', 'turn_left'],
+      ['R', 'Get light', 'get_light'],
+      ['R', 'Get direction', 'get_direction'],
+      ['R', 'Get touch', 'get_touch'],
+      ['R', 'Get angle', 'get_angle'],
+    ]
+  };
+
+  ScratchExtensions.register('Bucky', descriptor, ext);
+})({});
