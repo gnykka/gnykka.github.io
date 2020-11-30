@@ -1,0 +1,33 @@
+{
+    "title": "Bucky",
+    "subtitle": "Maker Robotics Platform",
+    "publisherName": "Baud EdTech",
+    "feedIdentifier": "io.github.baudgit.bucky-playground",
+    "contactURL": "https://www.buckybotbot.com",
+    "formatVersion": "1.0",
+    "documents": [
+        {
+            "title": "Bucky",
+            "overviewSubtitle": "Use Swift to control Bucky",
+            "description": "Code with Swift and Bucky.",
+            "detailSubtitle": "Learn to compare key paths and pick the right one.",
+            "description": "Learn to compare key paths and pick the right one.",
+            "contentIdentifier": "io.github.baudgit.bucky-playground.bucky",
+            "contentVersion": "1.0",
+            "url": "bucky/bucky.playgroundbook.zip",
+            "publishedDate": "2020-08-24T00:00:00+00:00",
+            "lastUpdatedDate": "2020-08-24T00:00:00+00:00",
+            "thumbnailURL": "bucky/thumbnail.png",
+            "bannerImageURL": "bucky/banner.png",
+            "additionalInformation": [
+                {
+                    "name": "Languages",
+                    "value": "English"
+                }
+            ],
+            "previewImageURLs": [
+                "bucky/preview-1.png"
+            ]
+        }
+    ]
+}
