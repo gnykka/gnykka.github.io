@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      circle {
+        fill: black;
+        r: 10;
+      }
+    </style>
+    <script src="https://d3js.org/d3.v6.js"></script>
+  </head>
+  <body>
+    <svg class="chart"></svg>
+
+    <script>
+      const N = 20;
+      const data = [];
+
+      for (let i = 0; i < N; i++) {
+        data.push({ x: i, y: Math.round(Math.random() * N) });
+      }
+
+      const width = 600;
+      const height = 400;
+      const margin = { top: 15, right: 25, bottom: 25, left: 25 };
+
+      const svg = d3.select('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
+        .append('g')
+        .attr('transform', `translate(${margin.left},${margin.top})`);
+
+      const xRange = [d3.min(data, d => d.x), d3.max(data, d => d.x)];
+      const yRange = [d3.min(data, d => d.y), d3.max(data, d => d.y)];
+
+      const xScale = d3.scaleLinear().domain(xRange).range([0, width]);
+      const yScale = d3.scaleLinear().domain(yRange).range([height, 0]);
+
+      svg.append('g').attr('transform', `translate(0,${height})`).call(d3.axisBottom(xScale));
+      svg.append('g').call(d3.axisLeft(yScale));
+
+      svg.selectAll('circle')
+        .data(data)
+        .enter()
+        .append('circle')
+        .attr('cx', d => xScale(d.x))
+        .attr('cy', d => yScale(d.y));
+    </script>
+  </body>
+</html>
