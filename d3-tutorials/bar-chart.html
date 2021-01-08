@@ -37,7 +37,10 @@
       const xInnerDomain = data[0].values.keys();
       const xInnerScale = d3.scaleBand().domain(xInnerDomain).rangeRound([0, xScale.bandwidth()]);
 
-      const yDomain = [0, d3.max(data, d => d3.max(d.values.map(v => v.value)))];
+      const yDomain = [
+        d3.min(data, d => d3.min(d.values.map(v => v.value))),
+        d3.max(data, d => d3.max(d.values.map(v => v.value)))
+      ];
       const yScale = d3.scaleLinear().domain(yDomain).range([height, 0]);
 
       const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
