@@ -30,11 +30,11 @@
         .append('g')
         .attr('transform', `translate(${margin.left},${margin.top})`);
 
-      const xRange = [d3.min(data, d => d.x), d3.max(data, d => d.x)];
-      const yRange = [d3.min(data, d => d.y), d3.max(data, d => d.y)];
+      const xDomain = [d3.min(data, d => d.x), d3.max(data, d => d.x)];
+      const yDomain = [d3.min(data, d => d.y), d3.max(data, d => d.y)];
 
-      const xScale = d3.scaleLinear().domain(xRange).range([0, width]);
-      const yScale = d3.scaleLinear().domain(yRange).range([height, 0]);
+      const xScale = d3.scaleLinear().domain(xDomain).range([0, width]);
+      const yScale = d3.scaleLinear().domain(yDomain).range([height, 0]);
 
       svg.append('g').attr('transform', `translate(0,${height})`).call(d3.axisBottom(xScale));
       svg.append('g').call(d3.axisLeft(yScale));
