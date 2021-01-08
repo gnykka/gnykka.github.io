@@ -14,10 +14,12 @@
       const data = [];
 
       months.forEach(month => {
-        data.push({
-          month,
-          values: [...Array(count).keys()].map(i => ({ key: i, value: Math.round(Math.random() * 100) / 100 })),
-        });
+        const values = [];
+
+        for (let i = 0; i < count; i++) {
+          values.push({ key: i, value: Math.round(Math.random() * 100) / 100 });
+        }
+        data.push({ month, values });
       });
 
       const width = 600;
@@ -32,7 +34,7 @@
 
       const xScale = d3.scaleBand().domain(months).range([0, width]).padding(0.1);
 
-      const xInnerDomain = [...Array(count).keys()];
+      const xInnerDomain = data[0].values.keys();
       const xInnerScale = d3.scaleBand().domain(xInnerDomain).rangeRound([0, xScale.bandwidth()]);
 
       const yDomain = [0, d3.max(data, d => d3.max(d.values.map(v => v.value)))];
@@ -43,14 +45,14 @@
       svg.append('g').attr('transform', `translate(0,${height})`).call(d3.axisBottom(xScale));
       svg.append('g').call(d3.axisLeft(yScale));
 
-      const chartSlice = svg.selectAll('.slice')
+      const barGroup = svg.selectAll('.group')
         .data(data)
         .enter()
         .append('g')
-        .attr('class', 'slice')
+        .attr('class', 'group')
         .attr('transform', d => `translate(${xScale(d.month)},0)`);
 
-      chartSlice.selectAll('rect')
+      barGroup.selectAll('rect')
         .data(d => d.values)
         .enter()
         .append('rect')
