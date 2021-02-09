@@ -101,7 +101,7 @@ section.releases .timecodes span {
   display: inline-block;
   width: 50px;
   font-family: Roboto;
-  color: #a9343e;
+  font-weight: bolder;
 }
 
 section.authors {
@@ -112,18 +112,27 @@ section.authors {
 }
 section.authors .title {
   width: 100%;
-  margin-bottom: 1em;
+  margin-bottom: 0.4em;
   font-size: 1.5em;
   font-weight: 500;
   text-align: center;
 }
 section.authors .author {
   width: 250px;
-  margin-top: 1.4em;
+  margin-top: 1.2em;
   text-align: center;
 }
+section.authors .author a {
+  display: inline-block;
+  color: #a9343e;
+  border-bottom: 1px solid transparent;
+  text-decoration: none;
+}
+section.authors .author a:hover {
+  border-bottom: 1px solid rgba(169,52,62,0.5);
+}
 section.authors .author img {
-  width: 10em;
+  width: 8em;
   object-fit: contain;
   border-radius: 50%;
   margin-bottom: 0.75em;
