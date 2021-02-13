@@ -40,6 +40,16 @@ main {
   overflow-y: auto;
 }
 
+section a.link {
+  display: inline-block;
+  color: #a9343e;
+  border-bottom: 1px solid transparent;
+  text-decoration: none;
+}
+section a.link:hover {
+  border-bottom: 1px solid rgba(169,52,62,0.5);
+}
+
 section.about {
   padding-top: 5em;
   display: flex;
@@ -103,7 +113,8 @@ section.releases .timecodes {
 }
 section.releases .timecodes span {
   display: inline-block;
-  width: 50px;
+  width: 58px;
+  text-align: right;
   font-family: Roboto;
   font-weight: bolder;
 }
@@ -126,15 +137,7 @@ section.authors .author {
   margin-top: 1.2em;
   text-align: center;
 }
-section.authors .author a {
-  display: inline-block;
-  color: #a9343e;
-  border-bottom: 1px solid transparent;
-  text-decoration: none;
-}
-section.authors .author a:hover {
-  border-bottom: 1px solid rgba(169,52,62,0.5);
-}
+
 section.authors .author img {
   width: 8em;
   object-fit: contain;
