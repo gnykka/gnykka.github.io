@@ -5,15 +5,15 @@
     const ctx = canvas.getContext('2d');
 
     const pixelRatio = window.devicePixelRatio || 1;
-    const lineWidth = 10;
+    const lineWidth = 8;
 
     let size = 0;
 
     let width = 0;
     let height = 0;
 
-    let rows = 16;
-    let cols = 32;
+    let rows = 8;
+    let cols = 24;
 
     let grid = [];
 
@@ -276,8 +276,8 @@
     const renderRooms = (rooms) => {
       ctx.clearRect(0, 0, width * pixelRatio, height * pixelRatio);
 
-      ctx.strokeStyle = '#000';
-      ctx.fillStyle = 'rgba(50, 125, 255, 0.5)';
+      ctx.strokeStyle = '#fff';
+      ctx.fillStyle = 'rgba(50, 200, 255)';
       ctx.lineWidth = lineWidth;
 
       rooms.forEach(room => {
@@ -292,16 +292,9 @@
         const doorSize = size * 0.2 * pixelRatio;
 
         ctx.fillRect(x1, y1, x2 - x1, y2 - y1);
+        ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
 
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y1);
-        ctx.lineTo(x2, y2);
-        ctx.lineTo(x1, y2);
-        ctx.lineTo(x1, y1);
-        ctx.stroke();
-
-        ctx.strokeStyle = '#fff';
+        ctx.strokeStyle = '#000';
 
         room.doors.forEach(({ index, direction }) => {
           ctx.beginPath();
@@ -330,7 +323,7 @@
           ctx.stroke();
         });
 
-        ctx.strokeStyle = '#000';
+        ctx.strokeStyle = '#fff';
       });
     };
 
