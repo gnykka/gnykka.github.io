@@ -5,15 +5,15 @@
     const ctx = canvas.getContext('2d');
 
     const pixelRatio = window.devicePixelRatio || 1;
-    const lineWidth = 8;
+    const lineWidth = 10;
 
     let size = 0;
 
     let width = 0;
     let height = 0;
 
-    let rows = 8;
-    let cols = 24;
+    let rows = 16;
+    let cols = 32;
 
     let grid = [];
 
