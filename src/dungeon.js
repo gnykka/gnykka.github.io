@@ -12,8 +12,8 @@
     let width = 0;
     let height = 0;
 
-    let rows = 6;
-    let cols = 12;
+    let rows = 16;
+    let cols = 32;
 
     let grid = [];
 
