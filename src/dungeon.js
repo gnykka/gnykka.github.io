@@ -60,7 +60,7 @@
 
       // get new random neighbor with some probability
       const getNeighbor = cell => {
-        const gen = Math.random() < 0.4;
+        const gen = Math.random() < 0.5;
         const neighbors = cell.links.filter(l => !breadcrumbs.includes(getKey(l)));
 
         return gen && neighbors.length
