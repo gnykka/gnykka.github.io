@@ -3,45 +3,23 @@ main {
   padding: 3vh 5vw;
 }
 
-input {
-  width: 100%;
-  padding: 0.25em 0.5em;
-  font-size: 1.5em;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-input:hover, input:active, input:focus {
-  border-color: #999;
-}
-
 .palette {
   width: 300px;
   height: 30px;
-  margin-top: 3em;
   border: 1px solid #ccc;
-}
-
-.gradient {
-  position: relative;
-  width: 90vw;
-  height: 45vw;
-  max-width: 400px;
-  max-height: 200px;
-  margin-top: 1.75em;
-  border: 1px solid #ccc;
-  border-radius: 4px;
 }
 
 .list {
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
-  align-items: flex-start;
-  width: 50%;
-  height: 200px;
   margin-top: 3em;
 }
-.list a {
-  display: inline-block;
-  margin-bottom: 0.5em;
+.list > div {
+  width: 400px;
+  height: 200px;
+  margin: 0 1em 1em 0;
+  padding: 0.25em;
+  font-size: 1.6em;
+  color: #333;
+  border: 1px solid #ccc;
 }

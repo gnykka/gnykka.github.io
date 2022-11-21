@@ -1,10 +1,5 @@
 (() => {
   window.addEventListener('load', () => {
-    const gradientContainer = document.querySelector('.gradient');
-    const textInput = document.querySelector('input');
-    const links = document.querySelectorAll('.list > a');
-    const paletteDiv = document.querySelector('.palette');
-
     const palette = [
       '#ffadad','#ffd6a5','#fdffb6','#caffbf','#9bf6ff','#a0c4ff','#bdb2ff','#ffc6ff',
     ];
@@ -24,16 +19,13 @@
       return array;
     };
 
-    const setGradient = (value) => {
-      const letters = value
-        .replace(/[^a-z| ]/gi,'')
-        .toLowerCase()
-        .split(' ')
-        .filter(Boolean)
-        .join('');
+    const setGradient = (div, text) => {
+      const letters = text
+        .replace(/[^a-z]/gi,'')
+        .toLowerCase();
 
       const getCount = () => {
-        const { length } = value;
+        const { length } = text;
         const range = [3, 6];
 
         if (length <= range[1]) {
@@ -43,35 +35,37 @@
         return range[0] + length % (range[1] - range[0] + 1);
       };
 
-      const getValueFromChar = (char) => {
-        const range = [10, 90];
+      const getValueFromChar = (char, range) => {
         const base = ["a".charCodeAt(0), "z".charCodeAt(0)];
         const value = char.charCodeAt(0);
 
         return range[0] + ((value - base[0]) / (base[1] - base[0])) * (range[1] - range[0]);
       }
 
-      const getStops = (count) => {
-        let fullLetters = letters;
-        if (fullLetters.length < count * 3) {
-          fullLetters += shuffle('abcdefghijklmnopqrstuvwxyz', fullLetters.length)
-            .slice(0, count * 3 - fullLetters.length);
-        }
+      const getLettersSalt = (letters) => {
+        return letters.split('').reduce((res, l) => res + l.charCodeAt(0), 0);
+      }
 
-        const salt = letters.split('').reduce((res, l) => res + l.charCodeAt(0), 0);
-        const sortedLetters = shuffle(fullLetters.split(''), salt);
-        const sortedPalette = shuffle([...palette], salt);
+      const getStops = (count) => {
+        const salt = getLettersSalt(letters);
+        const fullLetters = letters.length < count * 3
+          ? letters + shuffle('abcdefghijklmnopqrstuvwxyz', salt).slice(0, count * 3 - letters.length)
+          : letters;
+
+        const fullSalt = getLettersSalt(fullLetters);
+        const sortedLetters = shuffle(fullLetters.split(''), fullSalt);
+        const sortedPalette = shuffle([...palette], fullSalt);
         const stops = [];
 
         for (let i = 0; i < count; i++) {
-          const x = getValueFromChar(sortedLetters[i * 3]);
-          const y = getValueFromChar(sortedLetters[i * 3 + 1]);
-          const size = getValueFromChar(sortedLetters[i * 3 + 2]);
+          const x = getValueFromChar(sortedLetters[i * 3], [10, 90]);
+          const y = getValueFromChar(sortedLetters[i * 3 + 1], [10, 90]);
+          const size = getValueFromChar(sortedLetters[i * 3 + 2], [20, 75]);
 
           stops.push({
             x, y,
             color: sortedPalette[i % sortedPalette.length],
-            size: 50 + size / 2,
+            size,
           });
         }
 
@@ -83,22 +77,18 @@
 
       const gradientStr = stops.reduce((res, stop) => (
         res + `radial-gradient(circle at ${stop.x}% ${stop.y}%, ${
-          stop.color} 0%, ${stop.color} ${stop.size / 7.5}%, transparent ${stop.size}%), `
+          stop.color} ${stop.size * 0.1}%, transparent ${stop.size}%), `
       ), '').slice(0, -2);
 
-      gradientContainer.style.background = gradientStr;
+      div.style.background = gradientStr;
     };
 
-    textInput.addEventListener('input', e => {
-      setGradient(e.target.value);
+    const divs = document.querySelectorAll('.list > div');
+    const paletteDiv = document.querySelector('.palette');
+
+    [...divs].forEach(div => {
+      setGradient(div, div.innerText);
     });
-
-    [...links].forEach(link => link.addEventListener('click', e => {
-      textInput.value = e.target.innerText;
-      setGradient(textInput.value);
-    }));
-
-    setGradient(textInput.value);
 
     paletteDiv.style.background = `linear-gradient(90deg,
       #ffadad 0%, #ffadad 12.5%,
