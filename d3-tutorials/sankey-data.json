@@ -20,7 +20,7 @@
     { "id": 17, "name": "commercial" },
     { "id": 18, "name": "industrial" },
     { "id": 19, "name": "transportation" },
-    { "id": 20, "name": "direct use" },
+    { "id": 20, "name": "direct use" }
   ],
   "links": [
     { "source": 0, "target": 8, "value": 9.48 },
@@ -42,6 +42,6 @@
     { "source": 15, "target": 17, "value": 4.52 },
     { "source": 15, "target": 18, "value": 3.37 },
     { "source": 15, "target": 19, "value": 0.02 },
-    { "source": 15, "target": 20, "value": 0.46 },
+    { "source": 15, "target": 20, "value": 0.46 }
   ]
 }
