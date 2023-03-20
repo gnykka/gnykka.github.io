@@ -60,7 +60,7 @@
         for (let i = 0; i < count; i++) {
           const x = getValueFromChar(sortedLetters[i * 3], [10, 90]);
           const y = getValueFromChar(sortedLetters[i * 3 + 1], [10, 90]);
-          const size = getValueFromChar(sortedLetters[i * 3 + 2], [20, 75]);
+          const size = getValueFromChar(sortedLetters[i * 3 + 2], [25, 75]);
 
           stops.push({
             x, y,
