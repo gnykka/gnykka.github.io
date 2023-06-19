@@ -10,6 +10,7 @@
       path {
         fill: none;
         stroke-opacity: 0.5;
+        mix-blend-mode: multiply;
       }
       path:hover {
         stroke-opacity: 0.85;
@@ -56,11 +57,11 @@
         const graph = sankey(data);
 
         const link = svg.append('g')
-          .attr('class', 'link')
-          .selectAll('g')
+          .selectAll('.link')
           .data(graph.links)
-          .join('g')
-          .style('mix-blend-mode', 'multiply');
+          .enter()
+          .append('g')
+          .attr('class', 'link');
 
         link.append('linearGradient')
           .attr('id', d => `link-${d.index}`)
