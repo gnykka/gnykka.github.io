@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      html,
+      body { margin: 0; }
+      svg { margin: 20px; }
+    </style>
+    <script src="https://d3js.org/d3.v7.js"></script>
+  </head>
+  <body>
+    <svg class="chart"></svg>
+
+    <script>
+      const width = 800;
+      const height = 400;
+
+      const fontSize = 16;
+      const padding = 5;
+
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+
+      // measure text width with canvas element
+      const measureText = (text, fontSize) => {
+        context.font = `${fontSize}px serif`;
+        return context.measureText(text).width;
+      };
+
+      // get the smallest fontSize for text to fit
+      const calculateTextSize = (d) => {
+        const text = d.data.name;
+        const width = d.x1 - d.x0 - padding * 2;
+
+        let size = fontSize;
+        let textWidth = measureText(text, size);
+        
+        while (size > 10 && textWidth > width) {
+          size--;
+          textWidth = measureText(text, size);
+        }
+
+        return size;
+      };
+
+      // set svg size and transform
+      const svg = d3.select('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .append('g');
+
+      // generate random data
+      const data = { name: "treemap", children: [] };
+      const groupsCount = Math.round(3 + Math.random() * 2);
+
+      for (let i = 0; i < groupsCount; i++) {
+        const group = { name: `group_${i + 1}`, children: [] };
+        const count = Math.round(5 + Math.random() * 5);
+
+        for (let j = 0; j < count; j++) {
+          group.children.push({
+            name: `element_${j + 1}`,
+            value: 20 + Math.random() * 80,
+          });
+        }
+
+        data.children.push(group);
+      }
+
+      const root = d3
+        .hierarchy(data)
+        .sum((d) => d.value);
+
+      d3.treemap()
+        .size([width, height])
+        .padding(2)(root);
+
+      const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+      svg
+        .selectAll('rect')
+        .data(root.leaves())
+        .join('rect')
+        .attr('x', (d) => d.x0)
+        .attr('y', (d) => d.y0)
+        .attr('width', (d) => d.x1 - d.x0)
+        .attr('height', (d) => d.y1 - d.y0)
+        .style('stroke', 'black')
+        .style('fill', (d) => color(d.parent.data.name));
+
+      svg
+        .selectAll('text')
+        .data(root.leaves())
+        .join('text')
+        .attr('x', (d) => d.x0 + padding)
+        .attr('y', (d) => d.y0 + fontSize)
+        .style('font-size', (d) => `${calculateTextSize(d)}px`)
+        .text((d) => {
+          const text = d.data.name;
+          const width = d.x1 - d.x0 - padding * 2;
+
+          const size = calculateTextSize(d);
+
+          if (measureText(text, size) <= width) return text;
+
+          let truncatedText = text;
+          textWidth = measureText(`${truncatedText}...`, size);
+
+          while (textWidth > width && truncatedText.length > 0) {
+            truncatedText = truncatedText.substring(0, truncatedText.length - 1);
+            textWidth = measureText(`${truncatedText}...`, size)
+          }
+
+          return `${truncatedText}...`;
+        });
+    </script>
+  </body>
+</html>
